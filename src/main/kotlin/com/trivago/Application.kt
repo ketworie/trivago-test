@@ -1,7 +1,9 @@
 package com.trivago
 
-import com.trivago.accomodation.AccomodationService
-import com.trivago.plugins.*
+import com.trivago.accomodation.AccommodationService
+import com.trivago.accomodation.configureAccommodationRouting
+import com.trivago.location.LocationService
+import com.trivago.plugins.configureHTTP
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -13,8 +15,9 @@ fun main() {
 }
 
 fun Application.module() {
-    val connect = Database.connect("jdbc:postgresql://postgres:5432/trivago", user = "trivago", password = "changeit")
-    val accomodationService = AccomodationService(connect)
+    val connect = Database.connect("jdbc:postgresql://localhost:5432/trivago", user = "trivago", password = "changeit")
+    val locationService = LocationService(connect)
+    val accommodationService = AccommodationService(connect, locationService)
     configureHTTP()
-    configureRouting()
+    configureAccommodationRouting(accommodationService)
 }

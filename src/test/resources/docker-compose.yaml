@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  postgres:
+    image: "postgres:alpine"
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_DB: trivago
+      POSTGRES_USER: trivago
+      POSTGRES_PASSWORD: changeit
+    volumes:
+      - ../../../postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: "postgres"
+    ports:
+      - "9090:8080"

@@ -12,10 +12,10 @@ CREATE TABLE "public"."accommodation" (
                                           "location_id" bigint NOT NULL,
                                           "image" text NOT NULL,
                                           "reputation" integer NOT NULL,
-                                          "reputation_badge" text NOT NULL,
                                           "price" integer NOT NULL,
                                           "availability" integer NOT NULL,
                                           "version" bigint NOT NULL,
+                                          "hotelier_id" bigint NOT NULL,
                                           CONSTRAINT "accommodation_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
@@ -29,7 +29,7 @@ CREATE TABLE "public"."location" (
                                      "city" text NOT NULL,
                                      "state" text NOT NULL,
                                      "country" text NOT NULL,
-                                     "zip_code" text NOT NULL,
+                                     "zip_code" integer NOT NULL,
                                      "address" text NOT NULL,
                                      CONSTRAINT "location_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);

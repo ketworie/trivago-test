@@ -8,6 +8,8 @@
     <name>com.trivago.trivago-test</name>
     <description>com.trivago.trivago-test</description>
     <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <ktor_version>2.3.3</ktor_version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin_version>1.9.0</kotlin_version>
