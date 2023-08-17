@@ -43,7 +43,7 @@ paths:
       description: ""
       requestBody:
         content:
-          '*/*':
+          'application/json':
             schema:
               $ref: "#/components/schemas/AccommodationDTO"
         required: true
@@ -51,14 +51,14 @@ paths:
         "200":
           description: "OK"
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: "#/components/schemas/AccommodationDTO"
     put:
       description: ""
       requestBody:
         content:
-          '*/*':
+          'application/json':
             schema:
               $ref: "#/components/schemas/AccommodationDTO"
         required: true
@@ -82,7 +82,7 @@ paths:
         "200":
           description: "OK"
           content:
-            '*/*':
+            'application/json':
               schema:
                 type: "string"
               examples:
@@ -100,7 +100,7 @@ paths:
         "200":
           description: "OK"
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: "#/components/schemas/AccommodationDTO"
   /accommodations/{id}/book:
@@ -116,7 +116,7 @@ paths:
         "200":
           description: "OK"
           content:
-            '*/*':
+            'application/json':
               schema:
                 type: "string"
               examples:
@@ -129,7 +129,7 @@ paths:
         "200":
           description: "OK"
           content:
-            '*/*':
+            'application/json':
               schema:
                 type: "string"
               examples:
