@@ -63,7 +63,7 @@ class AccommodationService(private val connection: Database, private val locatio
         var locationId = dbLocationId
         val hasLocationChanged = dbLocationId != accommodation.location.id
         if (hasLocationChanged) {
-            locationId = locationService.create(accommodation.location).id
+            locationId = locationService.create(dto.location).id
         }
         val i = connection.update(Accommodations) {
             set(Accommodations.name, accommodation.name)

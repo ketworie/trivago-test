@@ -3,7 +3,6 @@ package com.trivago
 import com.trivago.accomodation.AccommodationService
 import com.trivago.accomodation.configureAccommodationRouting
 import com.trivago.location.LocationService
-import com.trivago.plugins.configureHTTP
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
