@@ -1,18 +1,19 @@
 openapi: "3.0.3"
 info:
-  title: "trivago_test API"
-  description: "trivago_test API"
+  title: "Accommodations API"
+  description: "Just a simple CRUD with booking functionality"
   version: "1.0.0"
 servers:
   - url: "http://localhost:8080"
 paths:
   /accommodations:
     get:
-      description: ""
+      summary: "Get all accommodations"
+      description: "Get all accommodations for given hotelier and optional parameters"
       parameters:
       - name: "hotelierId"
         in: "query"
-        required: false
+        required: true
         schema:
           type: "number"
       - name: "rating"
@@ -40,7 +41,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/AccommodationDTO"
     post:
-      description: ""
+      summary: "Create accommodation"
+      description: "Create accommodation"
       requestBody:
         content:
           'application/json':
@@ -55,7 +57,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/AccommodationDTO"
     put:
-      description: ""
+      summary: "Update accommodation"
+      description: "Update accommodation"
       requestBody:
         content:
           'application/json':
@@ -71,7 +74,8 @@ paths:
                 $ref: "#/components/schemas/AccommodationDTO"
   /accommodations/{id}:
     delete:
-      description: ""
+      summary: "Delete accommodation by id"
+      description: "Delete accommodation by id"
       parameters:
       - name: "id"
         in: "path"
@@ -89,7 +93,8 @@ paths:
                 Example#1:
                   value: ""
     get:
-      description: ""
+      summary: "Get accommodation by id"
+      description: "Get accommodation by id"
       parameters:
       - name: "id"
         in: "path"
@@ -105,7 +110,8 @@ paths:
                 $ref: "#/components/schemas/AccommodationDTO"
   /accommodations/{id}/book:
     post:
-      description: ""
+      summary: "Book accommodation"
+      description: "Book accommodation"
       parameters:
       - name: "id"
         in: "path"
@@ -124,7 +130,8 @@ paths:
                   value: ""
   /accommodations/generate:
     post:
-      description: ""
+      summary: "Generate test data"
+      description: "Generate test data. Accommodations for hoteliers with id 1 and 2"
       responses:
         "200":
           description: "OK"
