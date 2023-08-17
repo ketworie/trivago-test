@@ -39,7 +39,8 @@ class AccommodationService(private val connection: Database, private val locatio
             ?: throw RuntimeException("accommodation for id $id not found")
     }
 
-    fun create(accommodation: Accommodation): Accommodation {
+    fun create(dto: AccommodationDTO): Accommodation {
+        val accommodation = dto.toEntity()
         connection.sequenceOf(Locations).add(accommodation.location)
         accommodations.add(accommodation)
         return accommodation
@@ -49,7 +50,8 @@ class AccommodationService(private val connection: Database, private val locatio
         accommodations.removeIf { it.id eq id }
     }
 
-    fun update(accommodation: Accommodation): Accommodation {
+    fun update(dto: AccommodationDTO): Accommodation {
+        val accommodation = dto.toEntity()
         var dbLocationId: Long = 0
         connection
             .from(Accommodations)
@@ -74,7 +76,7 @@ class AccommodationService(private val connection: Database, private val locatio
             set(Accommodations.availability, accommodation.availability)
             set(Accommodations.version, ++accommodation.version)
             where {
-                (Accommodations.version eq accommodation.version) and (Accommodations.id eq accommodation.id)
+                (Accommodations.version eq accommodation.version) and (Accommodations.id eq dto.id)
             }
         }
         if (i == 0) {
@@ -89,7 +91,7 @@ class AccommodationService(private val connection: Database, private val locatio
         val i = connection.update(Accommodations) {
             set(Accommodations.availability, Accommodations.availability.minus(1))
             where {
-                Accommodations.availability gt 0
+                Accommodations.availability gt 0 and (Accommodations.id eq id)
             }
         }
         if (i == 0) throw RuntimeException("unable to book, availability is 0 or accommodation doesn't exist")

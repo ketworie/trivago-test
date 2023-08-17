@@ -25,12 +25,12 @@ fun Application.configureAccommodationRouting(accommodationService: Accommodatio
         }
         post("/accommodations") {
             val dto = call.receive<AccommodationDTO>()
-            val accommodation = accommodationService.create(dto.toEntity())
+            val accommodation = accommodationService.create(dto)
             call.respond(AccommodationDTO.from(accommodation))
         }
         put("/accommodations") {
             val dto = call.receive<AccommodationDTO>()
-            val accommodation = accommodationService.update(dto.toEntity())
+            val accommodation = accommodationService.update(dto)
             call.respond(AccommodationDTO.from(accommodation))
         }
         delete("/accommodations/{id}") {
@@ -59,7 +59,7 @@ fun Application.configureAccommodationRouting(accommodationService: Accommodatio
                     price = 100,
                     availability = 10,
                     version = 0
-                ).toEntity()
+                )
             )
             accommodationService.create(
                 AccommodationDTO(
@@ -75,7 +75,7 @@ fun Application.configureAccommodationRouting(accommodationService: Accommodatio
                     price = 200,
                     availability = 20,
                     version = 0
-                ).toEntity()
+                )
             )
             accommodationService.create(
                 AccommodationDTO(
@@ -91,7 +91,7 @@ fun Application.configureAccommodationRouting(accommodationService: Accommodatio
                     price = 1000,
                     availability = 1000,
                     version = 0
-                ).toEntity()
+                )
             )
             call.respond(HttpStatusCode.OK, "")
         }

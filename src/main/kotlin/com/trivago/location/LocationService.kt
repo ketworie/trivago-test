@@ -7,9 +7,9 @@ import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 
 class LocationService(private val connection: Database) {
-    fun create(location: Location): Location {
+    fun create(dto: LocationDTO): Location {
+        val location = dto.toEntity()
         connection.sequenceOf(Locations).add(location)
-        // TODO: get id
         return location
     }
 
