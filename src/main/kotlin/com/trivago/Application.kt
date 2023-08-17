@@ -14,7 +14,7 @@ fun main() {
 }
 
 fun Application.module() {
-    val connect = Database.connect("jdbc:postgresql://localhost:5432/trivago", user = "trivago", password = "changeit")
+    val connect = Database.connect("jdbc:postgresql://postgres:5432/trivago", user = "trivago", password = "changeit")
     val locationService = LocationService(connect)
     val accommodationService = AccommodationService(connect, locationService)
     configureHTTP()
