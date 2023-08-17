@@ -77,7 +77,7 @@ class AccommodationService(private val connection: Database, private val locatio
             set(Accommodations.image, accommodation.image)
             set(Accommodations.reputation, accommodation.reputation)
             set(Accommodations.price, accommodation.price)
-            set(Accommodations.locationId, dbLocationId)
+            set(Accommodations.locationId, locationId)
             set(Accommodations.availability, accommodation.availability)
             set(Accommodations.version, newVersion)
             where {
