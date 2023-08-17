@@ -39,24 +39,24 @@ class AccommodationService(private val connection: Database, private val locatio
             ?: throw RuntimeException("accommodation for id $id not found")
     }
 
-    fun create(dto: AccommodationDTO): Accommodation {
+    fun create(dto: AccommodationDTO): AccommodationDTO {
         val accommodation = dto.toEntity()
         connection.sequenceOf(Locations).add(accommodation.location)
         accommodations.add(accommodation)
-        return accommodation
+        return AccommodationDTO.from(accommodation)
     }
 
     fun delete(id: Long) {
         accommodations.removeIf { it.id eq id }
     }
 
-    fun update(dto: AccommodationDTO): Accommodation {
+    fun update(dto: AccommodationDTO): AccommodationDTO {
         val accommodation = dto.toEntity()
         var dbLocationId: Long = 0
         connection
             .from(Accommodations)
             .select(Accommodations.locationId)
-            .where(Accommodations.id eq accommodation.id)
+            .where(Accommodations.id eq dto.id)
             .forEach {
                 dbLocationId = it[Accommodations.locationId] ?: 0
             }
@@ -76,7 +76,7 @@ class AccommodationService(private val connection: Database, private val locatio
             set(Accommodations.availability, accommodation.availability)
             set(Accommodations.version, ++accommodation.version)
             where {
-                (Accommodations.version eq accommodation.version) and (Accommodations.id eq dto.id)
+                (Accommodations.version eq dto.version) and (Accommodations.id eq dto.id)
             }
         }
         if (i == 0) {
@@ -84,7 +84,7 @@ class AccommodationService(private val connection: Database, private val locatio
             throw RuntimeException("couldn't update accommodation. Wrong version or accommodation doesn't exist")
         }
         locationService.delete(dbLocationId)
-        return accommodation
+        return dto.copy(location = dto.location.copy(id = locationId))
     }
 
     fun book(id: Long) {

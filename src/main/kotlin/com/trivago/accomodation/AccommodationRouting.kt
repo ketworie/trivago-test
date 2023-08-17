@@ -26,12 +26,12 @@ fun Application.configureAccommodationRouting(accommodationService: Accommodatio
         post("/accommodations") {
             val dto = call.receive<AccommodationDTO>()
             val accommodation = accommodationService.create(dto)
-            call.respond(AccommodationDTO.from(accommodation))
+            call.respond(accommodation)
         }
         put("/accommodations") {
             val dto = call.receive<AccommodationDTO>()
             val accommodation = accommodationService.update(dto)
-            call.respond(AccommodationDTO.from(accommodation))
+            call.respond(accommodation)
         }
         delete("/accommodations/{id}") {
             val id = call.parameters["id"]?.toLongOrNull() ?: throw RuntimeException("id is missing or is not a number")
