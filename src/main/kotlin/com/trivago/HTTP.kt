@@ -29,6 +29,9 @@ fun Application.configureHTTP() {
             call.respondText(text = "500: $cause", status = HttpStatusCode.InternalServerError)
         }
     }
+}
+
+fun Application.configureValidation() {
     install(RequestValidation) {
         validate(AccommodationDTO::class) {
             if (it.name.lowercase().contains(hotelNameForbiddenWordsPattern)) {
@@ -56,6 +59,9 @@ fun Application.configureHTTP() {
             ValidationResult.Valid
         }
     }
+}
+
+fun Application.configureSwagger() {
     routing {
         swaggerUI(path = "api/doc")
     }

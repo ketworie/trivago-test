@@ -18,5 +18,7 @@ fun Application.module() {
     val locationService = LocationService(connect)
     val accommodationService = AccommodationService(connect, locationService)
     configureHTTP()
+    configureValidation()
+    configureSwagger()
     configureAccommodationRouting(accommodationService)
 }
