@@ -7,5 +7,5 @@ COPY src src
 RUN mvn package
 
 FROM eclipse-temurin:20.0.2_9-jre-alpine as runtime
-COPY --from=build /app/target/com-trivago-trivago-test-0.0.1-jar-with-dependencies.jar /app/app.jar
+COPY --from=build /app/target/trivago-test-0.0.1-jar-with-dependencies.jar /app/app.jar
 ENTRYPOINT java -jar /app/app.jar
