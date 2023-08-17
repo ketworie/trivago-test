@@ -69,6 +69,7 @@ class AccommodationService(private val connection: Database, private val locatio
         if (hasLocationChanged) {
             locationId = locationService.create(dto.location).id
         }
+        val newVersion = ++accommodation.version
         val i = connection.update(Accommodations) {
             set(Accommodations.name, accommodation.name)
             set(Accommodations.rating, accommodation.rating)
@@ -78,7 +79,7 @@ class AccommodationService(private val connection: Database, private val locatio
             set(Accommodations.price, accommodation.price)
             set(Accommodations.locationId, dbLocationId)
             set(Accommodations.availability, accommodation.availability)
-            set(Accommodations.version, ++accommodation.version)
+            set(Accommodations.version, newVersion)
             where {
                 (Accommodations.version eq dto.version) and (Accommodations.id eq dto.id)
             }
@@ -90,7 +91,7 @@ class AccommodationService(private val connection: Database, private val locatio
         if (hasLocationChanged) {
             locationService.delete(dbLocationId)
         }
-        return dto.copy(location = dto.location.copy(id = locationId))
+        return dto.copy(location = dto.location.copy(id = locationId), version = newVersion)
     }
 
     fun book(id: Long) {
