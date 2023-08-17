@@ -4,7 +4,7 @@
 
 DROP TABLE IF EXISTS "accommodation";
 DROP SEQUENCE IF EXISTS accommodation_id_seq;
-CREATE SEQUENCE accommodation_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 13 CACHE 1;
+CREATE SEQUENCE accommodation_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
 CREATE TABLE "public"."accommodation" (
                                           "id" bigint DEFAULT nextval('accommodation_id_seq') NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE "public"."accommodation" (
 
 DROP TABLE IF EXISTS "location";
 DROP SEQUENCE IF EXISTS location_id_seq;
-CREATE SEQUENCE location_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 14 CACHE 1;
+CREATE SEQUENCE location_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
 CREATE TABLE "public"."location" (
                                      "id" bigint DEFAULT nextval('location_id_seq') NOT NULL,
