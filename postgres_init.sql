@@ -1,8 +1,10 @@
+-- Adminer 4.8.1 PostgreSQL 15.4 dump
+
 \connect "trivago";
 
 DROP TABLE IF EXISTS "accommodation";
 DROP SEQUENCE IF EXISTS accommodation_id_seq;
-CREATE SEQUENCE accommodation_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE accommodation_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 13 CACHE 1;
 
 CREATE TABLE "public"."accommodation" (
                                           "id" bigint DEFAULT nextval('accommodation_id_seq') NOT NULL,
@@ -22,7 +24,7 @@ CREATE TABLE "public"."accommodation" (
 
 DROP TABLE IF EXISTS "location";
 DROP SEQUENCE IF EXISTS location_id_seq;
-CREATE SEQUENCE location_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE location_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 14 CACHE 1;
 
 CREATE TABLE "public"."location" (
                                      "id" bigint DEFAULT nextval('location_id_seq') NOT NULL,
@@ -35,4 +37,6 @@ CREATE TABLE "public"."location" (
 ) WITH (oids = false);
 
 
-ALTER TABLE ONLY "public"."accommodation" ADD CONSTRAINT "accommodation_location_id_fkey" FOREIGN KEY (location_id) REFERENCES location(id) ON UPDATE CASCADE ON DELETE CASCADE NOT DEFERRABLE;
+ALTER TABLE ONLY "public"."accommodation" ADD CONSTRAINT "accommodation_location_id_fkey" FOREIGN KEY (location_id) REFERENCES location(id) NOT DEFERRABLE;
+
+-- 2023-08-17 19:44:03.820716+00
