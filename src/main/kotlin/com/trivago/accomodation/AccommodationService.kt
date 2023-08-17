@@ -16,16 +16,20 @@ class AccommodationService(private val connection: Database, private val locatio
             filtered = filtered.filter { it.rating eq r }
         }
         city?.let { c ->
-            filtered = filtered.filter { it.locationId inList connection.from(Locations).select(Locations.id).where(Locations.city eq c) }
+            filtered = filtered.filter {
+                it.locationId inList connection.from(Locations).select(Locations.id).where(Locations.city eq c)
+            }
         }
         reputationBadge?.let {
             when (it) {
                 "red" -> {
                     filtered = filtered.filter { it.rating lte 500 }
                 }
+
                 "yellow" -> {
                     filtered = filtered.filter { it.rating gt 500 or (it.rating lte 799) }
                 }
+
                 "green" -> {
                     filtered = filtered.filter { it.rating gt 799 }
                 }
@@ -61,7 +65,7 @@ class AccommodationService(private val connection: Database, private val locatio
                 dbLocationId = it[Accommodations.locationId] ?: 0
             }
         var locationId = dbLocationId
-        val hasLocationChanged = dbLocationId != accommodation.location.id
+        val hasLocationChanged = dbLocationId != dto.location.id
         if (hasLocationChanged) {
             locationId = locationService.create(dto.location).id
         }
@@ -83,7 +87,9 @@ class AccommodationService(private val connection: Database, private val locatio
             if (hasLocationChanged) locationService.delete(locationId)
             throw RuntimeException("couldn't update accommodation. Wrong version or accommodation doesn't exist")
         }
-        locationService.delete(dbLocationId)
+        if (hasLocationChanged) {
+            locationService.delete(dbLocationId)
+        }
         return dto.copy(location = dto.location.copy(id = locationId))
     }
 
